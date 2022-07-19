@@ -1,43 +1,43 @@
 // Initial Data
 
-let square = { // Copia do que tem no quadro
+let square = { 
     a1: '', a2: '', a3: '',
     b1: '', b2: '', b3: '',
     c1: '', c2: '', c3: ''
 };
 
-let player = ''; // Vez de quem joga
-let warning = ''; // Armazenar mensagem do vencedor
-let playing = false; // Bloquear jogadas quando terminar jogo
+let player = ''; 
+let warning = '';
+let playing = false; 
 
 reset();
 
 // Events
 
-document.querySelector('.reset').addEventListener('click', reset); //Evento do botão resetar
+document.querySelector('.reset').addEventListener('click', reset); 
 
-document.querySelectorAll('.item').forEach(item => { // Passar em todos os botões e adicionar clique
+document.querySelectorAll('.item').forEach(item => { 
     item.addEventListener('click', itemClick)
 });
 
 // Functions
 
 function itemClick(event) {
-    let item = event.target.getAttribute('data-item') // Saber em quem clicou
+    let item = event.target.getAttribute('data-item') 
     if(playing && square[item] === '') {
-        square[item] = player; // onde clicou, põe a jogada do jogador
+        square[item] = player; 
         renderSquare();
-        tooglePlayer(); // Alternar jogador
+        tooglePlayer(); 
     }
 }
 
 function reset() {
     warning = '';
-    let random = Math.floor(Math.random() * 2) // Escolha do jogador ser aleatória
-    player = (random === 0) ? 'X' : 'O' // Se random for igual a 0: x, senão: o
+    let random = Math.floor(Math.random() * 2) 
+    player = (random === 0) ? 'X' : 'O' 
 
     for(let i in square) {
-        square[i] = ''; // Ir em cada campo e limpar
+        square[i] = ''; 
     }
 
     playing = true;
@@ -47,9 +47,9 @@ function reset() {
 }
 
 function renderSquare() {
-    for(let i in square) { // Selecionar cada item
+    for(let i in square) {
         let item = document.querySelector(`div[data-item=${i}]`)
-        item.innerHTML = square[i] // Preencher a tela de acordo com o que tá vazio no HTML
+        item.innerHTML = square[i] 
     }
     checkGame();
 }
@@ -68,7 +68,7 @@ function tooglePlayer() {
     renderInfo();
 }
 
-function checkGame() { //Verificar se ganhou
+function checkGame() { 
     if(checkWinnerFor('X')) {
         warning = 'O "X" venceu';
         playing = false;
